@@ -37,15 +37,7 @@
       const ctx = studio.getContext('2d');
 
       const 函数工厂 = {
-        PIXEL_RATIO: (function () {
-          let dpr = window.devicePixelRatio || 1,
-              bsr = ctx.webkitBackingStorePixelRatio ||
-                    ctx.mozBackingStorePixelRatio ||
-                    ctx.msBackingStorePixelRatio ||
-                    ctx.oBackingStorePixelRatio ||
-                    ctx.backingStorePixelRatio || 1;
-          return dpr / bsr;
-        })(),
+        PIXEL_RATIO: window.devicePixelRatio || 1,
         createHighDPICanvas: function (w, h, ratio) {
           if (!ratio) ratio = 函数工厂.PIXEL_RATIO;
           studio.width = w * ratio;
