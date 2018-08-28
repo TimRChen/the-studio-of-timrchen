@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>画室</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    .container {
+      width: 100%;
+      height: 100vh;
+    }
+    .container #studio {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 100%;
+      outline: 1px dotted #e2e2e2;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="studio"></canvas>
+  </div>
+  <script>
+    (function () {
+      const studio = document.querySelector('#studio');
+      if (!studio || !studio.getContext) return;
+      const ctx = studio.getContext('2d');
+
+      const 函数工厂 = {
+        PIXEL_RATIO: (function () {
+          let dpr = window.devicePixelRatio || 1,
+              bsr = ctx.webkitBackingStorePixelRatio ||
+                    ctx.mozBackingStorePixelRatio ||
+                    ctx.msBackingStorePixelRatio ||
+                    ctx.oBackingStorePixelRatio ||
+                    ctx.backingStorePixelRatio || 1;
+          return dpr / bsr;
+        })(),
+        createHighDPICanvas: function (w, h, ratio) {
+          if (!ratio) ratio = 函数工厂.PIXEL_RATIO;
+          studio.width = w * ratio;
+          studio.height = h * ratio;
+          studio.style.width = w + 'px';
+          studio.style.height = h + 'px';
+          studio.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
+        },
+        drawScreen: () => {
+          ctx.fillStyle = '#9c3';
+          ctx.fillRect(0, 0, 200, 200);
+        }
+      };
+
+      // 创建高DPI画布
+      函数工厂.createHighDPICanvas(500, 250);
+      // 绘制
+      函数工厂.drawScreen();
+
+    })();
+  </script>
+</body>
+</html>
