@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>画室</title>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    .container {
+      width: 100%;
+      height: 100vh;
+    }
+    .container #studio {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      width: 100%;
+      outline: 1px dotted #888;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="studio"></canvas>
+  </div>
+  <script>
+    (function () {
+      const studio = document.querySelector('#studio');
+      if (!studio || !studio.getContext) return;
+      const ctx = studio.getContext('2d');
+
+      class 函数工厂 {
+        constructor () {
+          this.PIXEL_RATIO = window.devicePixelRatio || 1;
+        }
+        createHighDPICanvas (w, h, ratio) {
+          if (!ratio) ratio = this.PIXEL_RATIO;
+          studio.width = w * ratio;
+          studio.height = h * ratio;
+          studio.style.width = w + 'px';
+          studio.style.height = h + 'px';
+          studio.getContext('2d').setTransform(ratio, 0, 0, ratio, 0, 0);
+        }
+        drawScreen (w = 100, h = 100, x = 0, y = 0) {
+          // 横线与竖线的是距
+          var dx = 8;
+          var dy = 8;
+          // 单个步长所表示的长度
+          var xy = 10;
+          var canvasGradient = ctx.createLinearGradient(x, y, w, h);
+          // 在offset为0、0.25、0.5、0.75、1的位置(即起点位置)添加颜色的渐变
+          canvasGradient.addColorStop(0, '#9c3');
+          canvasGradient.addColorStop(0.25, 'orange');
+          canvasGradient.addColorStop(0.5, 'red');
+          canvasGradient.addColorStop(0.75, 'blue');
+          canvasGradient.addColorStop(1, 'black');
+          ctx.strokeStyle = canvasGradient;
+          ctx.lineWidth = 1;
+          // 画横线
+          while (y < h) {
+            y = y + dy;
+            ctx.moveTo(x, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+            //横坐标的数字
+            ctx.font = "1px Calibri";
+            ctx.fillText(xy, x, y); xy += 10;
+          }
+          // 画竖线
+          y = 0;
+          xy = 10;
+          while (x < w) {
+            x = x + dx;
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, h);
+            ctx.stroke();
+            //纵坐标的数字
+            ctx.font = "1px Calibri";
+            ctx.fillText(xy, x, 10);
+            xy += 10;
+          }
+        }
+        drawFont () {
+          ctx.lineWidth = 10;
+          ctx.strokeStyle = 'rgba(0, 0, 0, 0.8)';
+
+          ctx.beginPath();
+          ctx.moveTo(400, 100);
+          ctx.lineTo(600, 100);
+          ctx.stroke();
+          ctx.closePath();
+
+          ctx.beginPath();
+          ctx.moveTo(400, 100);
+          ctx.lineTo(400, 400);
+          ctx.stroke();
+          ctx.closePath();
+
+          ctx.beginPath();
+          ctx.moveTo(400, 250);
+          ctx.lineTo(550, 250);
+          ctx.stroke();
+          ctx.closePath();
+        }
+      }
+
+      let fxck = new 函数工厂();
+
+      // 创建高DPI画布
+      fxck.createHighDPICanvas(1000, 500);
+      // 绘制
+      fxck.drawScreen(1000, 500);
+      // 画字
+      fxck.drawFont();
+
+    })();
+  </script>
+</body>
+</html>
