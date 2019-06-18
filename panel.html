@@ -19,12 +19,7 @@
         <div class="model">
             <svg width="500" height="200">
                 <g id="play-basketball">
-                    <rect
-                        x="0"
-                        y="0"
-                        width="400"
-                        height="100"
-                    />
+                    <rect x="0" y="0" width="400" height="100" />
                     <line
                         x1="0"
                         y1="100"
@@ -50,16 +45,22 @@
                         stroke-width="1"
                     ></path>
 
-                    <text x="0" y="0">
-                        🏀
+                    <circle
+                        cx="0"
+                        cy="-10"
+                        r="10"
+                        fill="orange"
+                        stroke="#fff"
+                        stroke-width="2"
+                    >
                         <animateMotion
                             dur="4s"
                             repeatCount="indefinite"
-                            rotate="auto"
+                            rotate="auto-reverse"
                         >
                             <mpath xlink:href="#active-path" />
                         </animateMotion>
-                    </text>
+                    </circle>
                 </g>
 
                 <!-- <use href="#play-basketball" x="0" y="100" ></use> -->
@@ -67,8 +68,8 @@
         </div>
 
         <div class="model">
-            <svg width="800" height="300">
-                <rect
+            <svg width="500" height="300">
+                <!-- <rect
                     x="1"
                     y="1"
                     width="498"
@@ -76,7 +77,7 @@
                     fill="none"
                     stroke="blue"
                     stroke-width="2"
-                />
+                /> -->
 
                 <path
                     id="path1"
@@ -98,7 +99,7 @@
                     <animateMotion
                         dur="6s"
                         repeatCount="indefinite"
-                        rotate="auto"
+                        rotate="auto-reverse"
                     >
                         <mpath xlink:href="#path1" />
                     </animateMotion>

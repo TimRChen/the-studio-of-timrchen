@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>svg路径动画</title>
+        <script src="https://cdn.bootcss.com/d3/5.9.2/d3.min.js"></script>
+    </head>
+    <body style="padding: 0; margin: 0; background-color: #000;">
+        <script>
+            {
+                // 配合JS实现一个往复的动画
+                const width = '100%'; // 画布的宽度
+                const height = '300'; // 画布的高度
+                const svg = d3
+                    .select('body') // 选择文档中的body元素
+                    .append('svg') // 添加一个svg元素
+                    .attr('width', width) // 设定宽度
+                    .attr('height', height) // 设定高度
+                    .attr('style', 'background-color: #000;'); // 设置svg画布的背景色为灰色
+
+                const pathD = 'M10 80 Q 77.5 10, 145 80 T 280 80';
+
+                let initialDashOffset = 0;
+                svg.append('path')
+                    .attr('d', pathD)
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', 5)
+                    .attr('stroke-dasharray', 5)
+                    .attr('stroke-dashoffset', initialDashOffset)
+                    .attr('fill', 'transparent');
+
+                const loopInterval = 30;
+                const timer = setInterval(() => {
+                    initialDashOffset += 1;
+                    d3.select('path').attr(
+                        'stroke-dashoffset',
+                        initialDashOffset
+                    );
+                }, loopInterval);
+            }
+
+            {
+                // 纯d3实现一个填充线条动画
+                const width = '100%'; // 画布的宽度
+                const height = '300'; // 画布的高度
+                const svg = d3
+                    .select('body') // 选择文档中的body元素
+                    .append('svg') // 添加一个svg元素
+                    .attr('width', width) // 设定宽度
+                    .attr('height', height) // 设定高度
+                    .attr('style', 'background-color: #000;'); // 设置svg画布的背景色为灰色
+
+                const pathD = 'M10 80 Q 77.5 10, 145 80 T 280 80';
+
+                let initialDashOffset = 0;
+                svg.append('path')
+                    .attr('id', 'diy-1')
+                    .attr('d', pathD)
+                    .attr('stroke', 'purple')
+                    .attr('stroke-width', 5)
+                    .attr('stroke-dasharray', 320)
+                    .attr('stroke-dashoffset', initialDashOffset)
+                    .attr('fill', 'transparent');
+
+                svg.select('#diy-1')
+                    .transition()
+                    .duration(5000)
+                    .ease(d3.easeLinear)
+                    .style('stroke', 'red');
+            }
+
+            {
+                // 纯css配合d3实现一个填充线条动画
+                const width = '100%'; // 画布的宽度
+                const height = '300'; // 画布的高度
+                const svg = d3
+                    .select('body') // 选择文档中的body元素
+                    .append('svg') // 添加一个svg元素
+                    .attr('width', width) // 设定宽度
+                    .attr('height', height) // 设定高度
+                    .attr('style', 'background-color: #000;'); // 设置svg画布的背景色为灰色
+
+                const pathD = 'M10 80 Q 77.5 10, 145 80 T 280 80';
+
+                let initialDashOffset = 0;
+                svg.append('path')
+                    .attr('id', 'diy-2')
+                    .attr('d', pathD)
+                    .attr('stroke', 'orange')
+                    .attr('stroke-width', 5)
+                    .attr('stroke-dasharray', 320)
+                    .attr('stroke-dashoffset', initialDashOffset)
+                    .attr('fill', 'transparent');
+            }
+        </script>
+        <style>
+            #diy-2 {
+                stroke-dasharray: 320;
+                stroke-dashoffset: 0;
+                animation: dash 5s linear 3;
+            }
+
+            @keyframes dash {
+                from {
+                    stroke-dashoffset: 320;
+                }
+                to {
+                    stroke-dashoffset: 0;
+                }
+            }
+        </style>
+    </body>
+</html>
