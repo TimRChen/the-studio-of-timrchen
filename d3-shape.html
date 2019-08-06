@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>d3 shape test</title>
+        <script src="https://cdn.bootcss.com/d3/5.9.2/d3.min.js"></script>
+    </head>
+    <body>
+        <script>
+            d3.select('body')
+                .append('svg')
+                .attr('width', 960)
+                .attr('height', 500);
+
+            const margin = { top: 10, right: 20, bottom: 20, left: 20 };
+            const width = 500;
+            const height = 300;
+
+            const data = [
+                { x: 0, y: 0 },
+                { x: 10, y: 40 },
+                { x: 20, y: 30 },
+                { x: 30, y: 70 },
+                { x: 40, y: 0 },
+                { x: 0, y: 0 },
+            ];
+            const x = d3
+                .scaleLinear()
+                .domain([0, d3.max(data, d => d.x)])
+                .range([margin.left, width - margin.right]);
+            const y = d3
+                .scaleLinear()
+                .domain([0, d3.max(data, d => d.y)])
+                .range([height - margin.bottom, margin.top]);
+
+            var line = d3
+                .line()
+                .x(d => x(d.x))
+                .y(d => y(d.y))(data);
+
+            const path = d3
+                .select('svg')
+                .append('path')
+                .attr('d', line)
+                .attr('stroke', '#000')
+                .attr('stroke-width', '2')
+                .attr('fill', 'transparent');
+        </script>
+    </body>
+</html>
