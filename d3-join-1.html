@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>d3 join 思想 - .data()中传入的数据</title>
+        <script src="https://cdn.bootcss.com/d3/5.9.2/d3.min.js"></script>
+        <style>
+        </style>
+    </head>
+    <body style="padding: 0; margin: 0; background-color: #fff;">
+        <script>
+            const matrix = [
+                [11975, 5871, 8916, 2868],
+                [1951, 10048, 2060, 6171],
+                [8010, 16145, 8090, 8045],
+                [1013, 990, 940, 6907],
+            ];
+
+            let tr = d3
+                .select('body')
+                .append('table')
+                .selectAll('tr')
+                .data(matrix)
+                .enter()
+                .append('tr');
+
+            // debugger
+
+            let td = tr
+                .selectAll('td')
+                .data(function(d) {
+                    return d;
+                })
+                .enter()
+                .append('td')
+                .text(function(d) {
+                    return d;
+                });
+        </script>
+    </body>
+</html>

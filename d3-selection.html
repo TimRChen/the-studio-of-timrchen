@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>d3 selection</title>
+        <script src="https://cdn.bootcss.com/d3/5.9.2/d3.min.js"></script>
+    </head>
+    <body>
+        <script>
+            var data = [
+                { x: 100, y: 50 },
+                { x: 140, y: 60 },
+                { x: 160, y: 90 },
+                { x: 200, y: 100 },
+                { x: 300, y: 250 },
+            ];
+
+            d3.select('body')
+                .append('svg')
+                    .attr('width', 960)
+                    .attr('height', 700)
+              .selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                    .attr('cx', function(d) {
+                        return d.x;
+                    })
+                    .attr('cy', function(d) {
+                        return d.y;
+                    })
+                    .attr('r', 2.5)
+                    .attr('fill', '#000');
+
+        </script>
+    </body>
+</html>
